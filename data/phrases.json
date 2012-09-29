@@ -1,0 +1,14 @@
+{
+  "problems: {
+    "template": "I got 99 problems but [_] ain't one.",
+    "lables": ["noun"]
+  },
+  "school": {
+    "template": "I can't go to school today, [_]. My [_] is [_].",
+    "lables": ["family member", "noun", "adjective"]
+  },
+  "twitter" {
+    "template": "To gain more Twitter followers, you should always [_] before you [_].",
+    "lables": ["verb", "verb"]
+  }
+}

@@ -99,6 +99,7 @@
       :page_num => 1
     }
     params[:count] = 20
+    params.keys # => [:count, :page_num]
 
     h = Hash.new(0)
     h["some_key"] # => 0
@@ -114,7 +115,7 @@
       end
 
       def baz(x)
-        x * s
+        x * @s
       end
 
       def frob(x, y)
@@ -185,6 +186,15 @@ Write a method which takes a number as an argument, and returns an array of the 
 
 !SLIDE
 
+# Hint #1 #
+
+    @@@Ruby
+    def evens_upto(n)
+      # Hint: use (1..n)
+    end
+
+!SLIDE
+
 # Solution #1 #
 
     @@@Ruby
@@ -200,10 +210,28 @@ Write a "greeter" class whose constructor takes a string. It should also have a 
 
 !SLIDE
 
+# Hint #2 #
+
+
+    @@@Ruby
+    class Greeter
+      def initialize(msg)
+        # ...
+      end
+
+      def greet(whom)
+        # ...
+      end
+    end
+
+!SLIDE
+
 # Solution #2 #
 
     @@@Ruby
     class Greeter
+      attr_reader :msg
+
       def initialize(msg)
         @msg = msg
       end
@@ -221,6 +249,15 @@ Write a method which takes two hashes mapping keys to numbers, and returns the a
 
 !SLIDE
 
+# Hint #3 #
+
+    @@@Ruby
+    def merged_hashes(fst, snd)
+      # Hint: use fst.keys to get an array of keys
+    end
+
+!SLIDE
+
 # Solution #3 #
 
     @@@Ruby
@@ -235,9 +272,57 @@ Write a method which takes two hashes mapping keys to numbers, and returns the a
         new_hash[k] = fst[k] + snd[k]
       end
 
-      shared_keys
+      new_hash
     end
 
 !SLIDE
 
-# Lunch Break #
+# Solution #3 (alt., per David Lee) #
+
+    @@@Ruby
+    def merged_hashes(fst, snd)
+      fst.merge(snd) do |key, first, second|
+        first + second
+      end
+    end
+
+!SLIDE
+
+# Puzzle #4 #
+
+Write a script which receives a file name on the command line (via the ARGV array). Each line will contain a numeric ID, followed by a space, followed by some text. Your script should echo the numeric of ID of all lines that contain the word "tweet".
+
+!SLIDE
+
+# Puzzle #4, cont. #
+
+## input.txt ##
+
+    1 Just setting up my twttr
+    2 Can I tweet now?
+    3 #YOLO
+    4 I don't know how to tweet
+    5 Ruby FTW
+
+# Puzzle #4, cont. #
+
+## output ##
+
+    [user@host ~] $ ruby filter_script.rb input.txt
+    2
+    4
+    [user@host ~] $
+
+!SLIDE
+
+# Solution #4 #
+
+    @@@Ruby
+    filename = ARGV.shift
+    lines = File.readlines(filename)
+    lines.each do |line|
+      if line.index("tweet")
+        puts line.split(" ")[0]
+      end
+    end
+
